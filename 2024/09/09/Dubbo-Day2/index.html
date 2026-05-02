@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Dubbo(Day2) | WislistBlog</title><meta name="author" content="Wislist"><meta name="copyright" content="Wislist"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Dubbo(Day2)消费端是如何找到服务端的?Dubbo 会在 Zookeeper 的 &#x2F;dubbo&#x2F;interfaceName 和 &#x2F;services&#x2F;appName 下写入服务提供者的连接信息。 zookeeper显示的数据：[code]    [zk: localhost:2181(CONNECTED) 2] ls &#x2F;services&#x2F;first-dubbo-provi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dubbo(Day2)">
+<meta property="og:url" content="https://wislist.github.io/2024/09/09/Dubbo-Day2/index.html">
+<meta property="og:site_name" content="WislistBlog">
+<meta property="og:description" content="Dubbo(Day2)消费端是如何找到服务端的?Dubbo 会在 Zookeeper 的 &#x2F;dubbo&#x2F;interfaceName 和 &#x2F;services&#x2F;appName 下写入服务提供者的连接信息。 zookeeper显示的数据：[code]    [zk: localhost:2181(CONNECTED) 2] ls &#x2F;services&#x2F;first-dubbo-provi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg">
+<meta property="article:published_time" content="2024-09-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-02T07:41:59.000Z">
+<meta property="article:author" content="Wislist">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Dubbo(Day2)",
+  "url": "https://wislist.github.io/2024/09/09/Dubbo-Day2/",
+  "image": "https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg",
+  "datePublished": "2024-09-08T16:00:00.000Z",
+  "dateModified": "2026-05-02T07:41:59.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wislist",
+      "url": "https://wislist.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://picst.sunbangyan.cn/2023/12/02/db350f7061c97579e788d6f53535d0d0.jpeg"><link rel="canonical" href="https://wislist.github.io/2024/09/09/Dubbo-Day2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Dubbo(Day2)',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">WislistBlog</span></a><a class="nav-page-title" href="/"><span class="site-name">Dubbo(Day2)</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Dubbo(Day2)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2024-09-08T16:00:00.000Z" title="发表于 2024-09-09 00:00:00">2024-09-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="Dubbo-Day2"><a href="#Dubbo-Day2" class="headerlink" title="Dubbo(Day2)"></a>Dubbo(Day2)</h3><h4 id="消费端是如何找到服务端的"><a href="#消费端是如何找到服务端的" class="headerlink" title="消费端是如何找到服务端的?"></a>消费端是如何找到服务端的?</h4><p>Dubbo 会在 Zookeeper 的 <code>/dubbo/interfaceName</code> 和 <code>/services/appName</code> 下写入服务提供者的连接信息。</p>
+<p>zookeeper显示的数据：<br>[code]<br>    [zk: localhost:2181(CONNECTED) 2] ls &#x2F;services&#x2F;first-dubbo-provider[30.221.146.35:20880][zk: localhost:2181(CONNECTED) 3] get &#x2F;services&#x2F;first-dubbo-provider&#x2F;30.221.146.35:20880{“name”:”first-dubbo-provider”,”id”:”30.221.146.35:20880”,”address”:”30.221.146.35”,”port”:20880,”sslPort”:null,”payload”:{“@class”:”org.apache.dubbo.registry.zookeeper.ZookeeperInstance”,”id”:”30.221.146.35:20880”,”name”:”first-dubbo-provider”,”metadata”:{“dubbo.endpoints”:”[{&quot;port&quot;:20880,&quot;protocol&quot;:&quot;dubbo&quot;}]”,”dubbo.metadata-service.url-params”:”{&quot;connections&quot;:&quot;1&quot;,&quot;version&quot;:&quot;1.0.0&quot;,&quot;dubbo&quot;:&quot;2.0.2&quot;,&quot;release&quot;:&quot;3.1.4&quot;,&quot;side&quot;:&quot;provider&quot;,&quot;ipv6&quot;:&quot;fd00:1:5:5200:3218:774a:4f67:2341&quot;,&quot;port&quot;:&quot;20880&quot;,&quot;protocol&quot;:&quot;dubbo&quot;}”,”dubbo.metadata.revision”:”871fbc9cb2730caea9b0d858852d5ede”,”dubbo.metadata.storage-type”:”local”,”ipv6”:”fd00:1:5:5200:3218:774a:4f67:2341”,”timestamp”:”1674960780647”}},”registrationTimeUTC”:1674960781893,”serviceType”:”DYNAMIC”,”uriSpec”:null}<br>[&#x2F;code]</p>
+<h4 id="消费端是如何发起请求的？"><a href="#消费端是如何发起请求的？" class="headerlink" title="消费端是如何发起请求的？"></a>消费端是如何发起请求的？</h4><p>在Dubbo调用模型中，起到连接服务消费者和服务提供者的桥梁是接口</p>
+<p>服务提供者对指定接口进行实现，消费者通过Dubbo去订阅这个接口。消费者调用接口的过程中Dubbo会将请求封装成网络请求，然后发送给提供者进行实际调用。</p>
+<p>例如，我们定义一个<code>GreetingsService</code>的 接口，这个接口有一个名为sayHi的方法<br>[code]<br>    package org.apache.dubbo.samples.api;public interface GreetingsService {    String sayHi(String name);}<br>[&#x2F;code]</p>
+<p>消费者通过Dubbo的API可以获取<code>GreetingsService</code>接口的代理，然后就可以按照普通的接口调用方式进行调用。<strong>得益于Dubbo的动态代理机制，这就像本地代理一样</strong><br>[code]<br>    &#x2F;&#x2F; 获取订阅到的 StubGreetingsService service &#x3D; reference.get();&#x2F;&#x2F; 像普通的 java 接口一样调用String message &#x3D; service.sayHi(“dubbo”);<br>[&#x2F;code]</p>
+<h4 id="Dubbo-Spring-Boot-Starter开发微服务"><a href="#Dubbo-Spring-Boot-Starter开发微服务" class="headerlink" title="Dubbo Spring Boot Starter开发微服务"></a>Dubbo Spring Boot Starter开发微服务</h4><p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20240909234029059.png" alt="image-20240909234029059"></p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20240909234102999.png" alt="image-20240909234102999"></p>
+<p>父工程的pom<br>[code]<br>    <?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0"         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">    <modelVersion>4.0.0</modelVersion>    <groupId>com.wislsit</groupId>    <artifactId>dubbo-spring-boot-demo</artifactId>    <version>1.0-SNAPSHOT</version>    <packaging>pom</packaging>    <modules>        <module>dubbo-spring-boot-demo-interface</module>        <module>dubbo-spring-boot-demo-provider</module>        <module>dubbo-spring-boot-demo-consumer</module>    </modules>    <properties>        &lt;spring-boot.version&gt;2.7.8&lt;&#x2F;spring-boot.version&gt;        &lt;dubbo.version&gt;3.2.0-beta.4&lt;&#x2F;dubbo.version&gt;        &lt;maven.compiler.source&gt;17&lt;&#x2F;maven.compiler.source&gt;        &lt;maven.compiler.target&gt;17&lt;&#x2F;maven.compiler.target&gt;        &lt;project.build.sourceEncoding&gt;UTF-8&lt;&#x2F;project.build.sourceEncoding&gt;    </properties>    <dependencies><!--        springboot-->        <dependency>            <groupId>org.springframework.boot</groupId>            <artifactId>spring-boot-dependencies</artifactId>            <version>${spring-boot.version}</version>            <type>pom</type>            <scope>import</scope>        </dependency><!--        Dubbo-->        <dependency>            <groupId>org.apache.dubbo</groupId>            <artifactId>dubbo-spring-boot-starter</artifactId>            <version>${dubbo.version}</version>            <type>pom</type>            <scope>import</scope>        </dependency><!--        -->        <dependency>            <groupId>org.apache.dubbo</groupId>            <artifactId>dubbo-dependencies-zookeeper-curator5</artifactId>            <version>${dubbo.version}</version>        </dependency>    </dependencies>    <build>        <pluginManagement>            <plugins>                <plugin>                    <groupId>org.springframework.boot</groupId>                    <artifactId>spring-boot-maven-plugin</artifactId>                    <version>${spring-boot.version}</version>                </plugin>            </plugins>        </pluginManagement>    </build></project><br>[&#x2F;code]</p>
+<p>子工程consumer和provider的pom<br>[code]<br>    <dependencies>        <dependency>            <groupId>com.wislsit</groupId>            <artifactId>dubbo-spring-boot-demo-interface</artifactId>            <version>1.0-SNAPSHOT</version>        </dependency>        <dependency>            <groupId>org.apache.dubbo</groupId>            <artifactId>dubbo-spring-boot-starter</artifactId>        </dependency>        <dependency>            <groupId>org.apache.dubbo</groupId>            <artifactId>dubbo-dependencies-zookeeper-curator5</artifactId>            <type>pom</type>            <exclusions>                <exclusion>                    <artifactId>slf4j-reload4j</artifactId>                    <groupId>org.slf4j</groupId>                </exclusion>            </exclusions>        </dependency><!--        springboot starter-->        <dependency>            <groupId>org.springframework.boot</groupId>            <artifactId>spring-boot-starter</artifactId>        </dependency><br>[&#x2F;code]</p>
+<h4 id="为啥我们需要Dubbo，它能带来啥？"><a href="#为啥我们需要Dubbo，它能带来啥？" class="headerlink" title="为啥我们需要Dubbo，它能带来啥？"></a>为啥我们需要Dubbo，它能带来啥？</h4><p>按照微服务架构的定义，采用它的组织能够很好的提高业务迭代效率与系统稳定性，但前提是要先能保证微服务按照期望的方式运行，要做到这一点需要解决服务拆分与定义、数据通信、地址发现、流量管理、数据一致性、系统容错能力等一系列问题。</p>
+<ul>
+<li>微服务编程范式和工具</li>
+<li>高性能的RPC通信</li>
+<li>微服务监控与治理</li>
+<li>部署在多个环境中</li>
+</ul>
+<h4 id="Dubbo核心概念和架构"><a href="#Dubbo核心概念和架构" class="headerlink" title="Dubbo核心概念和架构"></a>Dubbo核心概念和架构</h4><p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20240910215729270.png" alt="image-20240910215729270"></p>
+<ul>
+<li><p><strong>服务治理控制面</strong> ：不只是特指注册中心类的单一具体组件，而是Dubbo治理体系的抽象表达。注册中心、流量监控策略、Dubbo Admin控制台等。</p>
+</li>
+<li><p><strong>Dubbo数据面</strong> ：代表集群部署的所有Dubbo进程，进程之间通过RPC协议实现数据交换，Dubbo定义了微服务应用开发与调用规范并负责完成数据传输的编解码工作。</p>
+</li>
+</ul>
+<h4 id="Dubbo数据面"><a href="#Dubbo数据面" class="headerlink" title="Dubbo数据面"></a>Dubbo数据面</h4><ul>
+<li><p>dubbo作为数据面约束微服务的定义、开发与调用规范，定义了服务治理流程及适配模式</p>
+</li>
+<li><p>RPC通信协议实现解决服务间数据传输的编解码问题</p>
+</li>
+</ul>
+<h4 id="微服务开发框架"><a href="#微服务开发框架" class="headerlink" title="微服务开发框架"></a>微服务开发框架</h4><p>微服务的目标是构建足够小的、自包含的、独立演进的、可以随时部署运行的分布式应用程序</p>
+<p>微服务的分布式特性，使得应用间的依赖、网络交互、数据传输变得更频繁，因此不同的<strong>应用需要定义、暴露或调用 RPC 服务，那么这些 RPC 服务如何定义、如何与应用开发框架结合、服务调用行为如何控制？这就是 Dubbo 服务开发框架的含义，Dubbo 在微服务应用开发框架之上抽象了一套 RPC 服务定义、暴露、调用与治理的编程范式</strong> 。</p>
+<p>Dubbo Java 作为服务开发框架，当运行在 Spring 体系时就是构建在 Spring Boot 应用开发框架之上的微服务开发框架，并在此之上抽象了一套 RPC 服务定义、暴露、调用与治理的编程范式。</p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20240911002515957.png" alt="image-20240911002515957"></p>
+<p>Dobbo作为开发框架具体内容如下：</p>
+<ul>
+<li>RPC服务定义开发规范</li>
+<li>RPC服务发布与调用</li>
+<li>服务治理策略、流程与适配方式</li>
+</ul>
+<h3 id="通信协议"><a href="#通信协议" class="headerlink" title="通信协议"></a>通信协议</h3><p>支持多种主流的通信协议</p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20240911002814172.png" alt="image-20240911002814172"></p>
+<h3 id="高级特性"><a href="#高级特性" class="headerlink" title="高级特性"></a>高级特性</h3><h4 id="多版本"><a href="#多版本" class="headerlink" title="多版本"></a>多版本</h4><p>灰度发布：当出现新功能后 ，会让一部分用户使用新功能，用户反馈没问题之后，再将所有用户迁移到新功能</p>
+<p>dubbo用关键字version属性来设置和调用同一个接口的不同版本</p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20240911175025150.png" alt="image-20240911175025150"></p>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><p>策略：</p>
+<ul>
+<li>Random 随机访问策略（默认值 可以修改权重比调整概率）</li>
+</ul>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20240911192409810.png" alt="image-20240911192409810"></p>
+<ul>
+<li>RoundRobin权重轮询</li>
+<li>LeastActive 最少活跃调用数，相同活跃数的随机</li>
+<li>ConsistentHash 一致性Hash，相同参数的请求总是发到同一提供者</li>
+</ul>
+<h4 id="集群容错"><a href="#集群容错" class="headerlink" title="集群容错"></a>集群容错</h4><p>容错模式：</p>
+<ul>
+<li>Failover Cluster：失败重试。（默认值）当出现失败，重试其他服务器，默认重试2次，使用retries配置。一般用于读操作</li>
+<li>Failfast Cluster:快速失败，出现异常时直接忽略。return一个null</li>
+<li>Failsafe Cluster： 失败安全，出现异常直接忽略</li>
+<li>Failback Cluster： 失败自动恢复，后天记录失败请求，定时重发</li>
+<li>Broadcast Cluster： 广播调用所有提供者，逐个调用，任意一台报错则报错</li>
+</ul>
+<h4 id="服务降级"><a href="#服务降级" class="headerlink" title="服务降级"></a>服务降级</h4><p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20240911203939258.png" alt="image-20240911203939258"></p>
+<p>支付服务是最高的，当服务器接近极限，我们优先保障最高级的服务能够正常运行</p>
+<ul>
+<li>mock&#x3D;force:return null 表示消费方对该服务的方法调用直接返回null值，不发起远程调用。用来屏蔽不重要服务不可用时对调用发的影响</li>
+<li>mock&#x3D;fail:return null 表示消费方对该服务的方法调用在失败后，再返回null值，不泡异常。用来容忍不重要服务不稳定时对调用方的影响。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://wislist.github.io">Wislist</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://wislist.github.io/2024/09/09/Dubbo-Day2/">https://wislist.github.io/2024/09/09/Dubbo-Day2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://wislist.github.io" target="_blank">WislistBlog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2024/09/11/%E6%9C%AA%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/" title="未解决问题docker相关（已解决）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">未解决问题docker相关（已解决）</div></div><div class="info-2"><div class="info-item-1">未解决问题docker配置完daemon.json后无法正常启动docker 报错如下  推测：镜像站炸了实际上是：docker一个镜像一个docker.json 有些镜像需要用到 但是我为了加速镜像下载 将其修改到国内镜像源 我也是几天前才知道很多国内的docker源被国家制裁了（？） 所以当docker会一直连不上服务器 </div></div></div></a><a class="pagination-related" href="/2024/09/07/Dobbo-Day1/" title="Dobbo(Day1)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Dobbo(Day1)</div></div><div class="info-2"><div class="info-item-1">Dobbo(Day1)分布式服务架构RPC 远程过程调用   缺点：需要一个调度中心来实时分配服务器 提高资源的利用率 流动计算架构 ：动态调度中心：zookeeper nacos等等  RPC远程过程调用，一种进程间的通信方式，是一种技术思想 基本原理 RPC两大核心：通信 序列化 框架有 ： Dubbo、gRPC、Thrift、HSE（阿里巴巴） dobbo核心高性能、轻量级的开源java rpc框架，三大核心功能：面向接口的远程方法调用，智能容错和均衡负载、服务自动注册和发现 这里的Registry可以用zookeeper Zookeeper注册中心使用docker拉取镜像[code]    # 检索ZooKeeper 镜像docker search zookeeper# 拉取ZooKeeper镜像最新版本docker pull zookeeper:latest# 我使用的版本docker pull zookeeper:3.5.7[&#x2F;code]  启动容器  [code]    docker run -d –name zookeeper –privileged&#...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Wislist</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Wislist" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dubbo-Day2"><span class="toc-number">1.</span> <span class="toc-text">Dubbo(Day2)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E7%AB%AF%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%9A%84"><span class="toc-number">1.1.</span> <span class="toc-text">消费端是如何找到服务端的?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E7%AB%AF%E6%98%AF%E5%A6%82%E4%BD%95%E5%8F%91%E8%B5%B7%E8%AF%B7%E6%B1%82%E7%9A%84%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">消费端是如何发起请求的？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dubbo-Spring-Boot-Starter%E5%BC%80%E5%8F%91%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.3.</span> <span class="toc-text">Dubbo Spring Boot Starter开发微服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E5%95%A5%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81Dubbo%EF%BC%8C%E5%AE%83%E8%83%BD%E5%B8%A6%E6%9D%A5%E5%95%A5%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">为啥我们需要Dubbo，它能带来啥？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dubbo%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9E%B6%E6%9E%84"><span class="toc-number">1.5.</span> <span class="toc-text">Dubbo核心概念和架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dubbo%E6%95%B0%E6%8D%AE%E9%9D%A2"><span class="toc-number">1.6.</span> <span class="toc-text">Dubbo数据面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6"><span class="toc-number">1.7.</span> <span class="toc-text">微服务开发框架</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.</span> <span class="toc-text">通信协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">高级特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%89%88%E6%9C%AC"><span class="toc-number">3.1.</span> <span class="toc-text">多版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-number">3.2.</span> <span class="toc-text">负载均衡</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E5%AE%B9%E9%94%99"><span class="toc-number">3.3.</span> <span class="toc-text">集群容错</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7"><span class="toc-number">3.4.</span> <span class="toc-text">服务降级</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/02/sb%E6%89%8D%E7%94%A8java%E5%86%99%E7%AE%97%E6%B3%95%E9%A2%98/" title="sb才用java写算法题(by 楠姐)">sb才用java写算法题(by 楠姐)</a><time datetime="2025-04-01T16:00:00.000Z" title="发表于 2025-04-02 00:00:00">2025-04-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/07/docker%E9%97%AE%E9%A2%98-%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8%E4%BD%86%E6%98%AF%E6%88%91%E5%B9%B6%E6%B2%A1%E6%9C%89%E6%89%BE%E5%88%B0%E8%AF%A5%E7%AB%AF%E5%8F%A3%E8%A2%AB%E5%8D%A0%E7%94%A8%E4%BA%86/" title="docker问题">docker问题</a><time datetime="2024-10-06T16:00:00.000Z" title="发表于 2024-10-07 00:00:00">2024-10-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/17/%E8%A2%AB%E8%BF%9C%E7%A8%8B%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%BF%AB%E9%80%9F%E8%A3%85%E9%85%8D%E4%BB%A5%E5%8F%8A%E5%AE%9E%E6%97%B6%E4%BF%AE%E6%94%B9%E9%9C%87%E6%83%8A-%CE%A9%D0%94%CE%A9/" title="被远程注册中心快速装配以及实时修改震惊(ΩДΩ)">被远程注册中心快速装配以及实时修改震惊(ΩДΩ)</a><time datetime="2024-09-16T16:00:00.000Z" title="发表于 2024-09-17 00:00:00">2024-09-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/15/Swagger%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F%EF%BC%88day1%EF%BC%89/" title="Swagger前世今生">Swagger前世今生</a><time datetime="2024-09-14T16:00:00.000Z" title="发表于 2024-09-15 00:00:00">2024-09-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/15/%E5%85%B3%E4%BA%8E%E5%9C%A8%E6%9B%B4%E6%96%B0jkd17%E6%97%B6%E9%81%97%E7%95%99%E4%B8%8B%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98/" title="关于在更新jkd17时遗留下来的问题">关于在更新jkd17时遗留下来的问题</a><time datetime="2024-09-14T16:00:00.000Z" title="发表于 2024-09-15 00:00:00">2024-09-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Wislist</span></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

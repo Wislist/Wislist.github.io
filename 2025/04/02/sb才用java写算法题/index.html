@@ -1,0 +1,211 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>sb才用java写算法题(by 楠姐) | WislistBlog</title><meta name="author" content="Wislist"><meta name="copyright" content="Wislist"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="java写题大模板[code]    import java.util.;import java.io.;import static java.lang.System.out;public class Main {    static Scanner in &#x3D; new Scanner(System.in);    static int N &#x3D; (int)(1e5+10);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sb才用java写算法题(by 楠姐)">
+<meta property="og:url" content="https://wislist.github.io/2025/04/02/sb%E6%89%8D%E7%94%A8java%E5%86%99%E7%AE%97%E6%B3%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="WislistBlog">
+<meta property="og:description" content="java写题大模板[code]    import java.util.;import java.io.;import static java.lang.System.out;public class Main {    static Scanner in &#x3D; new Scanner(System.in);    static int N &#x3D; (int)(1e5+10);">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg">
+<meta property="article:published_time" content="2025-04-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-02T07:41:59.000Z">
+<meta property="article:author" content="Wislist">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "sb才用java写算法题(by 楠姐)",
+  "url": "https://wislist.github.io/2025/04/02/sb%E6%89%8D%E7%94%A8java%E5%86%99%E7%AE%97%E6%B3%95%E9%A2%98/",
+  "image": "https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg",
+  "datePublished": "2025-04-01T16:00:00.000Z",
+  "dateModified": "2026-05-02T07:41:59.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Wislist",
+      "url": "https://wislist.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://picst.sunbangyan.cn/2023/12/02/db350f7061c97579e788d6f53535d0d0.jpeg"><link rel="canonical" href="https://wislist.github.io/2025/04/02/sb%E6%89%8D%E7%94%A8java%E5%86%99%E7%AE%97%E6%B3%95%E9%A2%98/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'sb才用java写算法题(by 楠姐)',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">WislistBlog</span></a><a class="nav-page-title" href="/"><span class="site-name">sb才用java写算法题(by 楠姐)</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">sb才用java写算法题(by 楠姐)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2025-04-01T16:00:00.000Z" title="发表于 2025-04-02 00:00:00">2025-04-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h3 id="java写题大模板"><a href="#java写题大模板" class="headerlink" title="java写题大模板"></a>java写题大模板</h3><p>[code]<br>    import java.util.<em>;import java.io.</em>;import static java.lang.System.out;public class Main {    static Scanner in &#x3D; new Scanner(System.in);    static int N &#x3D; (int)(1e5+10);    public static void main(String[] args) {        &#x2F;&#x2F;编写代码段        in.close();        out.flush();    }}<br>[&#x2F;code]</p>
+<h3 id="快读模板"><a href="#快读模板" class="headerlink" title="快读模板"></a>快读模板</h3><p>[code]<br>    static BufferedReader br &#x3D; new BufferedReader(new InputStreamReader(System.in));   static PrintWriter out &#x3D; new PrintWriter(new OutputStreamWriter(System.out));<br>[&#x2F;code]</p>
+<h3 id="前缀和和差分（区间加减问题）"><a href="#前缀和和差分（区间加减问题）" class="headerlink" title="前缀和和差分（区间加减问题）"></a>前缀和和差分（区间加减问题）</h3><p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313160104419.png" alt="image-20250313160104419"></p>
+<p>题解：<br>[code]<br>    import java.util.Scanner;&#x2F;&#x2F; 1:无需package&#x2F;&#x2F; 2: 类名必须Main, 不可修改public class Main {        public static void main(String[] args) {        Scanner scan &#x3D; new Scanner(System.in);        &#x2F;&#x2F;在此输入您的代码…        int n &#x3D; scan.nextInt();        int q &#x3D; scan.nextInt();        int[] a &#x3D; new int[n];        int[] pre &#x3D; new int[n + 1];        for(int i &#x3D; 0 ; i &lt; n ; i ++){          a[i] &#x3D; scan.nextInt();        }        for(int i &#x3D; 1 ; i &lt;&#x3D; n ;i++){          pre[i] &#x3D; pre[i - 1] + a[i - 1];        }               int l &#x3D; 0,r &#x3D; 0;                for(int i &#x3D; 0 ; i &lt; q; i ++){          l &#x3D; scan.nextInt();          r &#x3D; scan.nextInt();          System.out.println(pre[r] - pre[l - 1]);        }        scan.close();    }   }<br>[&#x2F;code]</p>
+<p>模板：<br>[code]<br>    public class main{	public static void main(String[] arg){    Scanner scan &#x3D; new Scanner(System.in);      }    public static void prefixSum(int l){    &#x2F;&#x2F;加一是为了让其与数组一致 一般把0舍弃了 如果不舍弃 java会数组报错,cpp这个pre[0-1]虽然不会报错，但是有隐患 比如说pre[1]就是 a[0]的和，pre[2]就是a[0] + a[1]的和 以此类推    int[] pre &#x3D; new int[l + 1];    &#x2F;&#x2F;构建前缀和数组    for(int i &#x3D; 1 ; i &lt;&#x3D; n ; i ++){      pre[i] &#x3D; pre[i-1] + a[i-1];    }  }}<br>[&#x2F;code]</p>
+<p>差分就是前缀合的逆运算：同样也是构筑前缀和数组</p>
+<p>Pre[i] &#x3D; a[i] - a[i - 1];</p>
+<p><strong>从差分数组还原原数组：对差分数组求前缀和就是原数组</strong></p>
+<ul>
+<li><strong>快速区间修改</strong></li>
+</ul>
+<p>​ 通过调整差分数组可以高效完成原数组的区间操作。</p>
+<p>​ 对区间[l,r]的每个元素加上一个d，只需要：</p>
+<p>​ b[ l ] +&#x3D; d , b[r + 1] -&#x3D;d.</p>
+<p>​ 在完成所有修改后，通过对差分数组求前缀和即可得到最终的结果数组</p>
+<p>- </p>
+<p>模板：<br>[code]<br>    import java.util.Arrays;import java.util.Scanner;&#x2F;&#x2F;若题目中出现 在什么区间内加或者减数组啥的  可以考虑用差分数组&#x2F;&#x2F;差分数组的主要适用场景是频繁对原始数组的某个区间的元素进行增减。public class Main {    public static void main(String[] args) {        Scanner scanner &#x3D; new Scanner(System.in);        int n &#x3D; scanner.nextInt();+        int m &#x3D; scanner.nextInt();        int[] a &#x3D; new int[n + 1];        &#x2F;&#x2F;比较前缀和  我的模板是从1开始的 ， 而前缀和是从0开始的        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {            a[i] &#x3D; scanner.nextInt();        }        &#x2F;&#x2F; 差分数组        int[] firr &#x3D; new int[n + 1];        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {            firr[i] &#x3D; a[i] - a[i - 1];        }                for (int i &#x3D; 0; i &lt; m; i++) {            int l &#x3D; scanner.nextInt();            int r &#x3D; scanner.nextInt();            int d &#x3D; scanner.nextInt();            firr[l] +&#x3D; d;            &#x2F;&#x2F; 这里为啥要这么写？ 如果r+1大于n 就不用管后面的内容了            if( r + 1 &lt;&#x3D; n){                firr[r + 1] -&#x3D; d;            }        }         int[] ans &#x3D; new int[n+1];        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {            ans[i] &#x3D; ans[i - 1] + firr[i];        }        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {            System.out.print(ans[i] + “ “);        }        scanner.close();    }}<br>[&#x2F;code]</p>
+<h3 id="二维前缀和和差分"><a href="#二维前缀和和差分" class="headerlink" title="二维前缀和和差分"></a>二维前缀和和差分</h3><h3 id=""><a href="#" class="headerlink" title=""></a><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313192456829.png" alt="image-20250313192456829"></h3><p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313192543261.png" alt="image-20250313192543261"></p>
+<p>二维前缀和表示的其实是(a,b)到(x,y)的子矩阵的和</p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313193333221.png" alt="image-20250313193333221"></p>
+<h3 id="二维前缀和"><a href="#二维前缀和" class="headerlink" title="二维前缀和"></a>二维前缀和</h3><p>前缀和数组公式：s(x2,y2) &#x3D; a(x2,y2) + s(x2,y2-1) + s(x2-1,y2) - s(x2-1,y2-1)</p>
+<p>区域公式：s(x1,y1) - &gt; s(x2,y2) &#x3D; s(x2,y2) - s(x2,y1 - 1) - s(x1 - 1 , y2) + s(x1-1,y1-1)</p>
+<p>模板：<br>[code]<br>    import java.util.<em>;import java.io.</em>;import static java.lang.System.out;&#x2F;** * @Date: 2025&#x2F;03&#x2F;13 * @Author: Wislist **&#x2F;public class Main {    static Scanner in &#x3D; new Scanner(System.in);    static int N &#x3D; (int)(1e5+10);    static int[][] A;    static int[][] forMax;    public static void main(String[] args) {        &#x2F;&#x2F;编写代码段        int n &#x3D; in.nextInt();        int m &#x3D; in.nextInt();        int q &#x3D; in.nextInt();        A &#x3D; new int[n + 1][m + 1];        forMax &#x3D; new int[n + 1][m + 1];        for(int i &#x3D; 1 ; i &lt;&#x3D; n ; i ++){            for(int j &#x3D; 1; j &lt;&#x3D; m ; j++){                A[i][j] &#x3D; in.nextInt();                if(i &#x3D;&#x3D;  1 &amp;&amp; j &#x3D;&#x3D; 1){                    forMax[1][1] &#x3D; A[1][1];                }else{                    forMax[i][j] &#x3D; A[i][j] + forMax[i][j - 1] + forMax[i - 1][j] - forMax[i - 1][j - 1];                }            }        }        for(int i &#x3D; 0 ; i &lt; q ; i ++){            int x1 &#x3D; in.nextInt();            int y1 &#x3D; in.nextInt();            int x2 &#x3D; in.nextInt();            int y2 &#x3D; in.nextInt();            out.println(forMax[x2][y2] - forMax[x1 - 1][y2] - forMax[x2][y1 - 1] + forMax[x1 - 1][y1 - 1]);        }        in.close();        out.flush();    }}<br>[&#x2F;code]</p>
+<h3 id="二维差分"><a href="#二维差分" class="headerlink" title="二维差分"></a>二维差分</h3><p>前缀和数组求差分后是原数组，原数组求差分后是差分数组<br>[code]<br>    import java.util.Scanner;import static java.lang.System.out;public class Difference_2D {    static Scanner in &#x3D; new Scanner(System.in);    static int N &#x3D; (int) (1e3 + 10);    static int[][] a &#x3D; new int[N][N];    static int[][] b &#x3D; new int[N][N];    static int[][] ans &#x3D; new int[N][N];    static int n,m,q;    public static void main(String[] args) {        n &#x3D; in.nextInt();        m &#x3D; in.nextInt();        q &#x3D; in.nextInt();        for (int i &#x3D; 1; i &lt;&#x3D; n; i++) {            for (int j &#x3D; 1; j &lt;&#x3D; m; j++) {                a[i][j] &#x3D; in.nextInt();                b[i][j] &#x3D; a[i][j] - a[i - 1][j] - a[i][j-1] + a[i - 1][j-1];            }        }        while(q–&gt;0){            int x1 &#x3D; in.nextInt();            int y1 &#x3D; in.nextInt();            int x2 &#x3D; in.nextInt();            int y2 &#x3D; in.nextInt();            int d &#x3D; in.nextInt();            b[x1][y1] +&#x3D; d;            b[x2+1][y1] -&#x3D;d;            b[x1][y2+1] -&#x3D;d;            b[x2+1][y2+1] +&#x3D;d ;        }        for(int i&#x3D;1;i&lt;&#x3D;n;i++){            for(int j &#x3D; 1 ; j&lt;&#x3D;m;j++){                ans[i][j] &#x3D; b[i][j] + ans[i-1][j]  + ans[i][j-1] - ans[i-1][j-1];                out.print(ans[i][j] + “ “);            }            out.println();        }    }}<br>[&#x2F;code]</p>
+<h3 id="二分法（分治思想的特殊情况）"><a href="#二分法（分治思想的特殊情况）" class="headerlink" title="二分法（分治思想的特殊情况）"></a>二分法（分治思想的特殊情况）</h3><h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><p>数组 set map</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>kmp算法(匹配字符串问题)</p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250314090356010.png" alt="image-20250314090356010"></p>
+<p>文本串：aabaabaaf</p>
+<p>匹配串：aabaaf</p>
+<p>暴力匹配：O(m*n)</p>
+<p>kmp算法： 前缀表（a,aa,aab,aaba,aabaa）后缀表(f,af,aaf,baaf,abaaf)</p>
+<p>最长公共前后缀<br>(a,aa,aab,aaba,aabaa,aabaaf)<br>(0, 1 , 0 , 1 （a 一个相等的前后缀） , 2(aa两个相等前后缀) , 0)<br>[&#x2F;code]<br>[code] </p>
+<h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p>1、遍历</p>
+<p>层序遍历：</p>
+<p>模板：<br>[code]<br>     &#x2F;&#x2F;从上到下 public List&lt;List<Integer>&gt; levelOrder(TreeNode root) {      			List&lt;List<Integer>&gt; res &#x3D; new ArrayList&lt;&gt;()；        if (root &#x3D;&#x3D; null) return;        Queue<TreeNode> que &#x3D; new LinkedList<TreeNode>();   			&#x2F;&#x2F;        que.offer(node);        while (!que.isEmpty()) {            List<Integer> itemList &#x3D; new ArrayList<Integer>();            int len &#x3D; que.size();            while (len &gt; 0) {                TreeNode tmpNode &#x3D; que.poll();                itemList.add(tmpNode.val);                if (tmpNode.left !&#x3D; null) que.offer(tmpNode.left);                if (tmpNode.right !&#x3D; null) que.offer(tmpNode.right);                len–;            }            res.add(itemList);        }   return res;}&#x2F;&#x2F;自底向上class Solution {    public List&lt;List<Integer>&gt; levelOrderBottom(TreeNode root) {        &#x2F;&#x2F; 利用链表可以进行 O(1) 头部插入, 这样最后答案不需要再反转        LinkedList&lt;List<Integer>&gt; ans &#x3D; new LinkedList&lt;&gt;();        Queue<TreeNode> q &#x3D; new LinkedList&lt;&gt;();        if (root !&#x3D; null) q.offer(root);        while (!q.isEmpty()) {            int size &#x3D; q.size();            List<Integer> temp &#x3D; new ArrayList&lt;&gt;();            for (int i &#x3D; 0; i &lt; size; i ++) {                TreeNode node &#x3D; q.poll();                temp.add(node.val);                if (node.left !&#x3D; null) q.offer(node.left);                if (node.right !&#x3D; null) q.offer(node.right);            }            &#x2F;&#x2F; 新遍历到的层插到头部, 这样就满足按照层次反序的要求            ans.addFirst(temp);        }        return ans;    }<br>[&#x2F;code]</p>
+<p>补充： morris遍历 时间复杂度为O(1) 在不使用栈或者递归的情况下实现中序遍历。核心思想是利用树中的空闲指针来临时存储信息。<br>[code]<br>    public class MorrisTraversal {    public void inorder(TreeNode root) {        TreeNode current &#x3D; root;        while (current !&#x3D; null) {            if (current.left &#x3D;&#x3D; null) {                &#x2F;&#x2F; 如果当前节点的左子节点为空，访问当前节点并移动到右子节点                System.out.print(current.val + “ “);                current &#x3D; current.right;            } else {                &#x2F;&#x2F; 找到当前节点左子树的最右节点                TreeNode predecessor &#x3D; current.left;                while (predecessor.right !&#x3D; null &amp;&amp; predecessor.right !&#x3D; current) {                    predecessor &#x3D; predecessor.right;                }                if (predecessor.right &#x3D;&#x3D; null) {                    &#x2F;&#x2F; 如果前驱节点的右子节点为空，将其右子节点设置为当前节点                    predecessor.right &#x3D; current;                    current &#x3D; current.left;                } else {                    &#x2F;&#x2F; 如果前驱节点的右子节点为当前节点，恢复树的结构并访问当前节点                    predecessor.right &#x3D; null;                    System.out.print(current.val + “ “);                    current &#x3D; current.right;                }            }        }    }<br>[&#x2F;code]</p>
+<p>反转二叉</p>
+<p>其实是左右对称 将左子树反转到右子树上<br>[code]<br>    class Solution {    public TreeNode invertTree(TreeNode root) {        if(root &#x3D;&#x3D; null) return root;                TreeNode node &#x3D; root.right;        root.right &#x3D; root.left;        root.left &#x3D; node;                invertTree(root.right);        invertTree(root.left);        return root;    }}<br>[&#x2F;code]</p>
+<p>2、对称二叉</p>
+<p>判断是否为对称二叉<br>[code]<br>    class Solution {    public boolean isSymmetric(TreeNode root) {        boolean isSame &#x3D; compare(root.left,root.right);        return isSame;    }    boolean compare(TreeNode left , TreeNode right){        if(left &#x3D;&#x3D; null &amp;&amp; right !&#x3D; null) return false;        else if(left !&#x3D; null &amp;&amp; right &#x3D;&#x3D; null) return false;        else if(left &#x3D;&#x3D; null &amp;&amp; right &#x3D;&#x3D; null) return true;        else if ( left.val !&#x3D; right.val) return false;        boolean outside &#x3D; compare(left.left, right.right);        boolean inside &#x3D; compare(left.right, right.left);        return outside &amp;&amp; inside;    }}<br>[&#x2F;code]</p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313000443450.png" alt="image-20250313000443450"></p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313000504570.png" alt="image-20250313000504570"></p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313000538381.png" alt="image-20250313000538381"></p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313000616084.png" alt="image-20250313000616084"></p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313000631763.png" alt="image-20250313000631763"></p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313000712655.png" alt="image-20250313000712655"></p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313000730596.png" alt="image-20250313000730596"></p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313000744133.png" alt="image-20250313000744133"></p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313000807006.png" alt="image-20250313000807006"></p>
+<p><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/image-20250313000820935.png" alt="image-20250313000820935"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://wislist.github.io">Wislist</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://wislist.github.io/2025/04/02/sb%E6%89%8D%E7%94%A8java%E5%86%99%E7%AE%97%E6%B3%95%E9%A2%98/">https://wislist.github.io/2025/04/02/sb%E6%89%8D%E7%94%A8java%E5%86%99%E7%AE%97%E6%B3%95%E9%A2%98/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://wislist.github.io" target="_blank">WislistBlog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2024/10/07/docker%E9%97%AE%E9%A2%98-%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8%E4%BD%86%E6%98%AF%E6%88%91%E5%B9%B6%E6%B2%A1%E6%9C%89%E6%89%BE%E5%88%B0%E8%AF%A5%E7%AB%AF%E5%8F%A3%E8%A2%AB%E5%8D%A0%E7%94%A8%E4%BA%86/" title="docker问题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">docker问题</div></div><div class="info-2"><div class="info-item-1">docker问题 我自认为dockerdesktop在windows电脑上运行这是一件很酷的事 会节省很多操作但是 是我小看了docker了 报错为（随机的 毫无规律的）：docker: Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:6379 -&gt; 0.0.0.0:0: listen tcp 0.0.0.0:6379: bind: An attempt was made to access a socket in a way forbidden by its access permissions. 我在stack overflow找到了解决的办法 docker - 端口不可用：监听 tcp 0.0.0.0&#x2F;50070：bind：尝试以访问权限禁止的方式访问套接字 - Stack Overflow 以及大佬解释的原因 Solve the problem of docker on Windows 10 failed to port binding | Med...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://wilsit-img.oss-cn-guangzhou.aliyuncs.com/img/128170809_p0.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Wislist</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Wislist" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#java%E5%86%99%E9%A2%98%E5%A4%A7%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">java写题大模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E8%AF%BB%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.</span> <span class="toc-text">快读模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%BC%80%E5%92%8C%E5%92%8C%E5%B7%AE%E5%88%86%EF%BC%88%E5%8C%BA%E9%97%B4%E5%8A%A0%E5%87%8F%E9%97%AE%E9%A2%98%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">前缀和和差分（区间加减问题）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C%E5%92%8C%E5%B7%AE%E5%88%86"><span class="toc-number">4.</span> <span class="toc-text">二维前缀和和差分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C"><span class="toc-number">6.</span> <span class="toc-text">二维前缀和</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E7%BB%B4%E5%B7%AE%E5%88%86"><span class="toc-number">7.</span> <span class="toc-text">二维差分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%B3%95%EF%BC%88%E5%88%86%E6%B2%BB%E6%80%9D%E6%83%B3%E7%9A%84%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5%EF%BC%89"><span class="toc-number">8.</span> <span class="toc-text">二分法（分治思想的特殊情况）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="toc-number">9.</span> <span class="toc-text">哈希表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">10.</span> <span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-number">11.</span> <span class="toc-text">二叉树</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/02/sb%E6%89%8D%E7%94%A8java%E5%86%99%E7%AE%97%E6%B3%95%E9%A2%98/" title="sb才用java写算法题(by 楠姐)">sb才用java写算法题(by 楠姐)</a><time datetime="2025-04-01T16:00:00.000Z" title="发表于 2025-04-02 00:00:00">2025-04-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/07/docker%E9%97%AE%E9%A2%98-%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8%E4%BD%86%E6%98%AF%E6%88%91%E5%B9%B6%E6%B2%A1%E6%9C%89%E6%89%BE%E5%88%B0%E8%AF%A5%E7%AB%AF%E5%8F%A3%E8%A2%AB%E5%8D%A0%E7%94%A8%E4%BA%86/" title="docker问题">docker问题</a><time datetime="2024-10-06T16:00:00.000Z" title="发表于 2024-10-07 00:00:00">2024-10-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/17/%E8%A2%AB%E8%BF%9C%E7%A8%8B%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83%E5%BF%AB%E9%80%9F%E8%A3%85%E9%85%8D%E4%BB%A5%E5%8F%8A%E5%AE%9E%E6%97%B6%E4%BF%AE%E6%94%B9%E9%9C%87%E6%83%8A-%CE%A9%D0%94%CE%A9/" title="被远程注册中心快速装配以及实时修改震惊(ΩДΩ)">被远程注册中心快速装配以及实时修改震惊(ΩДΩ)</a><time datetime="2024-09-16T16:00:00.000Z" title="发表于 2024-09-17 00:00:00">2024-09-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/15/Swagger%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F%EF%BC%88day1%EF%BC%89/" title="Swagger前世今生">Swagger前世今生</a><time datetime="2024-09-14T16:00:00.000Z" title="发表于 2024-09-15 00:00:00">2024-09-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/15/%E5%85%B3%E4%BA%8E%E5%9C%A8%E6%9B%B4%E6%96%B0jkd17%E6%97%B6%E9%81%97%E7%95%99%E4%B8%8B%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98/" title="关于在更新jkd17时遗留下来的问题">关于在更新jkd17时遗留下来的问题</a><time datetime="2024-09-14T16:00:00.000Z" title="发表于 2024-09-15 00:00:00">2024-09-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Wislist</span></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
